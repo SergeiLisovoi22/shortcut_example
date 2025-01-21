@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-table-address" author="Sergei">
+        <createTable tableName="address" schemaName="public">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="user_id" type="int"/>
+            <column name="city" type="varchar(64)"/>
+            <column name="street" type="varchar(128)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="address"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="add-index-city" author="Sergei">
+        <createIndex tableName="address" indexName="idx_city" unique="false">
+            <column name="city"/>
+        </createIndex>
+        <rollback>
+            <dropIndex tableName="address" indexName="idx_city"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="add-foreign-key" author="Sergei">
+        <addForeignKeyConstraint baseTableName="address" baseColumnNames="user_id"
+                                 referencedTableName="user_entity" referencedColumnNames="id"
+                                 constraintName="fk_user_address"/>
+        <rollback>
+            <dropForeignKeyConstraint baseTableName="address" constraintName="fk_user_address"/>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="add-column-zip-code" author="Sergei">
+        <addColumn tableName="address">
+            <column name="zip_code" type="varchar(16)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <rollback>
+            <dropColumn tableName="address" columnName="zip_code"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

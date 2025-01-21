@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+
+        <RollingFile name="RollingFile" fileName="logs/shortcut_example.log" filePattern="logs/shortcut_example-%i.log.gz" append="true">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+            <DirectWriteRolloverStrategy maxFiles="10"/>
+        </RollingFile>
+
+        <Async name="Async">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <Root level="warn">
+            <AppenderRef ref="Async"/>
+        </Root>
+
+        <Logger name="com.example.controller.TestOneController" level="info" additivity="false">
+            <AppenderRef ref="Async"/>
+        </Logger>
+
+        <Logger name="com.example.controller.TestTwoController" level="debug" additivity="false">
+            <AppenderRef ref="Async"/>
+        </Logger>
+    </Loggers>
+</Configuration>

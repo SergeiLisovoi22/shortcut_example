@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="create-table-user" author="Sergei">
+        <createTable tableName="user_entity" schemaName="public">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(64)"/>
+            <column name="surname" type="varchar(64)"/>
+            <column name="description" type="varchar(255)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="user_entity" schemaName="public"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

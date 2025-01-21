@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="add-user-1" author="Sergei">
+        <insert tableName="user_entity" schemaName="public">
+            <column name="name" value="John"/>
+            <column name="surname" value="Doe"/>
+            <column name="description" value="First user description"/>
+        </insert>
+        <rollback>
+            <delete tableName="user_entity" schemaName="public">
+                <where>name='John' AND surname='Doe'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="add-user-2" author="Sergei">
+        <insert tableName="user_entity" schemaName="public">
+            <column name="name" value="Jane"/>
+            <column name="surname" value="Smith"/>
+            <column name="description" value="Second user description"/>
+        </insert>
+        <rollback>
+            <delete tableName="user_entity" schemaName="public">
+                <where>name='Jane' AND surname='Smith'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="add-user-3" author="Sergei">
+        <insert tableName="user_entity" schemaName="public">
+            <column name="name" value="Ivan"/>
+            <column name="surname" value="Ivanov"/>
+            <column name="description" value="Third user description"/>
+        </insert>
+        <insert tableName="user_entity" schemaName="public">
+            <column name="name" value="Petr"/>
+            <column name="surname" value="Petrov"/>
+            <column name="description" value="Fourth user description"/>
+        </insert>
+        <rollback>
+            <delete tableName="user_entity" schemaName="public">
+                <where>name='Ivan' AND surname='Ivanov' AND name='Petr' AND surname='Petrov'</where>
+            </delete>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: shortcut_example
+springdoc:
+  swagger-ui:
+    enabled: true
